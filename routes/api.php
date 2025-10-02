@@ -11,6 +11,7 @@ use App\Http\Controllers\RefRadiusController;
 use App\Http\Controllers\FileController;
 
 
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -77,4 +78,9 @@ Route::prefix('files')->group(function () {
     Route::get('/{id}', [FileController::class, 'show']);
     Route::put('/{id}', [FileController::class, 'update']);
     Route::delete('/{id}', [FileController::class, 'destroy']);
+    });
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
 });
